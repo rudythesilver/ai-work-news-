@@ -2,16 +2,16 @@ name: Daily AI News Update
 
 on:
   schedule:
-    - cron: '0 0 * * *' # 매일 한국 시간 오전 9시 (UTC 0시) 실행
-  workflow_dispatch: # 수동 실행 버튼 활성화
+    - cron: '0 0 * * *' # 매일 한국 시간 오전 9시
+  workflow_dispatch: # 수동 실행 버튼
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4 # v3에서 v4로 업데이트
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # v4에서 v5로 업데이트
         with:
           python-version: '3.9'
       - name: Install dependencies
