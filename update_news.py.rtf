@@ -1,0 +1,39 @@
+{\rtf1\ansi\ansicpg949\cocoartf2869
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red203\green35\blue57;\red255\green255\blue255;\red21\green21\blue23;
+\red87\green96\blue106;\red6\green33\blue79;\red91\green40\blue180;\red7\green68\blue184;\red218\green76\blue12;
+}
+{\*\expandedcolortbl;;\cssrgb\c84314\c22745\c28627;\cssrgb\c100000\c100000\c100000;\cssrgb\c10588\c10588\c11765;
+\cssrgb\c41569\c45098\c49020;\cssrgb\c1176\c18431\c38431;\cssrgb\c43529\c25882\c75686;\cssrgb\c0\c36078\c77255;\cssrgb\c89020\c38431\c3529;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 import\cf4 \strokec4  feedparser\
+\cf2 \strokec2 import\cf4 \strokec4  json\
+\cf2 \strokec2 import\cf4 \strokec4  datetime\
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \strokec5 # \uc0\u49688 \u51665 \u54616 \u44256  \u49910 \u51008  RSS \u51452 \u49548  (Google News - AI \u50629 \u47924  \u54876 \u50857  \u53412 \u50892 \u46300 )\cf4 \strokec4 \
+RSS_URL = \cf6 \strokec6 "https://news.google.com/rss/search?q=AI+\uc0\u50629 \u47924 +\u54876 \u50857 +\u50616 \u50612 :ko&hl=ko&gl=KR&ceid=KR:ko"\cf4 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \strokec2 def\cf4 \strokec4  \cf7 \cb3 \strokec7 fetch_ai_news\cf4 \cb3 \strokec4 ():\
+    feed = feedparser.parse(RSS_URL)\
+    news_list = []\
+\
+    \cf2 \strokec2 for\cf4 \strokec4  entry \cf2 \strokec2 in\cf4 \strokec4  feed.entries[:\cf8 \strokec8 9\cf4 \strokec4 ]:  \cf5 \strokec5 # \uc0\u52572 \u49888  \u45684 \u49828  9\u44060 \u47564  \u52628 \u52636 \cf4 \strokec4 \
+        news_list.append(\{\
+            \cf6 \strokec6 "title"\cf4 \strokec4 : entry.title,\
+            \cf6 \strokec6 "link"\cf4 \strokec4 : entry.link,\
+            \cf6 \strokec6 "summary"\cf4 \strokec4 : entry.summary[:\cf8 \strokec8 100\cf4 \strokec4 ] + \cf6 \strokec6 "..."\cf4 \strokec4 , \cf5 \strokec5 # \uc0\u50836 \u50557  (\u49892 \u51228 \u47196 \u45716  \u45908  \u51221 \u44368 \u54616 \u44172  \u44032 \u44277  \u44032 \u45733 )\cf4 \strokec4 \
+            \cf6 \strokec6 "date"\cf4 \strokec4 : datetime.datetime.now().strftime(\cf6 \strokec6 "%Y-%m-%d"\cf4 \strokec4 )\
+        \})\
+    \
+    \cf2 \strokec2 with\cf4 \strokec4  \cf9 \strokec9 open\cf4 \strokec4 (\cf6 \strokec6 'data.json'\cf4 \strokec4 , \cf6 \strokec6 'w'\cf4 \strokec4 , encoding=\cf6 \strokec6 'utf-8'\cf4 \strokec4 ) \cf2 \strokec2 as\cf4 \strokec4  f:\
+        json.dump(news_list, f, ensure_ascii=\cf8 \strokec8 False\cf4 \strokec4 , indent=\cf8 \strokec8 4\cf4 \strokec4 )\
+\
+\cf2 \strokec2 if\cf4 \strokec4  __name__ == \cf6 \strokec6 "__main__"\cf4 \strokec4 :\
+    fetch_ai_news()}
